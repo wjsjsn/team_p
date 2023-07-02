@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
@@ -35,12 +36,16 @@ public class user_point extends JPanel {
 	private JLabel lblNewLabel;
 	private List<VO_point> p_list;
 	private String[] p_com = { "선택해주세요", "포인트 사용내역", "포인트 환불내역", "포인트 충전내역" };
-	private JPanel panel_2;
+	private JPanel jp6;
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
+	private JPanel jp7;
+	private JPanel jp8;
 	private JButton charge_bt;
 	private JButton refund_bt;
+	private JLabel lblNewLabel_1;
+	private JTextField p_tf;
 
 	/**
 	 * Create the panel.
@@ -63,9 +68,14 @@ public class user_point extends JPanel {
 		refund_bt.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				parent.showCard("p_refund");
-				((point_refund) parent.getP("p_refund")).refund_tf();
-				p_box.setSelectedIndex(0);
+				String point = parent.getC_Vo().getPoint();
+				if(Integer.parseInt(point) <= 0) {
+					refund_bt.setEnabled(false);
+				}else {
+					parent.showCard("p_refund");
+					((point_refund) parent.getP("p_refund")).refund_tf();
+					p_box.setSelectedIndex(0);					
+				}
 			}
 		});
 
@@ -128,10 +138,10 @@ public class user_point extends JPanel {
 		lblNewLabel.setFont(new Font("맑은 고딕", Font.BOLD, 50));
 		jp5.add(lblNewLabel);
 		
-		panel_2 = new JPanel();
-		panel_2.setBorder(new EmptyBorder(35, 0, 0, 0));
-		jp1.add(panel_2);
-		panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.X_AXIS));
+		jp6 = new JPanel();
+		jp6.setBorder(new EmptyBorder(35, 0, 0, 0));
+		jp1.add(jp6);
+		jp6.setLayout(new BoxLayout(jp6, BoxLayout.X_AXIS));
 		
 		textField_3 = new JTextField();
 		textField_3.setText("포인트 번호");
@@ -140,7 +150,7 @@ public class user_point extends JPanel {
 		textField_3.setEditable(false);
 		textField_3.setColumns(10);
 		textField_3.setBackground(Color.white);
-		panel_2.add(textField_3);
+		jp6.add(textField_3);
 		
 		textField_4 = new JTextField();
 		textField_4.setText("포인트");
@@ -149,7 +159,7 @@ public class user_point extends JPanel {
 		textField_4.setBackground(Color.white);
 		textField_4.setEditable(false);
 		textField_4.setColumns(10);
-		panel_2.add(textField_4);
+		jp6.add(textField_4);
 		
 		textField_5 = new JTextField();
 		textField_5.setText("날짜");
@@ -158,7 +168,7 @@ public class user_point extends JPanel {
 		textField_5.setBackground(Color.white);
 		textField_5.setEditable(false);
 		textField_5.setColumns(15);
-		panel_2.add(textField_5);
+		jp6.add(textField_5);
 
 		jp3 = new JPanel();
 		jp3.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -179,15 +189,34 @@ public class user_point extends JPanel {
 
 		jp4 = new JPanel();
 		add(jp4, BorderLayout.NORTH);
-		jp4.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		jp4.setLayout(new GridLayout(2, 1));
+		
+		jp7 = new JPanel();
+		jp7.setBorder(new EmptyBorder(30, 0, 0, 0));
+		jp4.add(jp7, BorderLayout.NORTH);
+		jp7.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		lblNewLabel_1 = new JLabel("현재 포인트 : ");
+		lblNewLabel_1.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		jp7.add(lblNewLabel_1);
+		
+		p_tf = new JTextField();
+		p_tf.setEditable(false);
+		p_tf.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		jp7.add(p_tf);
+		p_tf.setBackground(Color.white);
+		p_tf.setColumns(10);
+		
+		jp8 = new JPanel();
+		jp4.add(jp8, BorderLayout.SOUTH);
 		
 		charge_bt = new JButton("  포인트 충전  ");
 		charge_bt.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		jp4.add(charge_bt);
+		jp8.add(charge_bt);
 		
 		refund_bt = new JButton("  포인트 환불  ");
 		refund_bt.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		jp4.add(refund_bt);
+		jp8.add(refund_bt);
 
 	}
 
@@ -241,6 +270,10 @@ public class user_point extends JPanel {
 		} else {
 			list.setListData(new String[] {});
 		}
+	}
+	
+	public void setP() {
+		p_tf.setText(parent.getC_Vo().getPoint());
 	}
 
 }

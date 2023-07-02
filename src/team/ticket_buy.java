@@ -1,6 +1,7 @@
 package team;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -18,8 +19,10 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 
+import mybatis.DAO;
 import mybatis.DAO_point;
 import mybatis.DAO_ticketbuy;
+import mybatis.VO;
 import mybatis.VO_point;
 import mybatis.VO_ticketbuy;
 
@@ -55,80 +58,170 @@ public class ticket_buy extends JPanel {
 						"기간권을 선택하신 것이 맞으십니까?\n*기간권 사용 동안 일일 최대 사용 시간은 12시간입니다.*", "이용권 구매",
 						JOptionPane.OK_CANCEL_OPTION);
 				if (res == 0) {
-					if (ten.isSelected()) {
-							VO_point vo = new VO_point();
-							vo.setCharge_date(time);
-							vo.setP_attribute("사용");
-							vo.setPoint("-8000");
-							vo.setUser_id(parent.getC_Vo().getUser_id());
-							DAO_point.getPInsert(vo);
-							
-							VO_ticketbuy vo_t = new VO_ticketbuy();
-							vo_t.setBuy_date(time);
-							vo_t.setPrice(vo.getPoint());
-							vo_t.setTicket_id(ten.getText());
-							vo_t.setUser_id(parent.getC_Vo().getUser_id());
-							DAO_ticketbuy.getTInsert(vo_t);
-							
-							parent.showCard("com");
-							((ticket_com)parent.getP("com")).ticketCom();
-						} else if (twenty.isSelected()) {
-							VO_point vo = new VO_point();
-							vo.setCharge_date(time);
-							vo.setP_attribute("사용");
-							vo.setPoint("-9000");
-							vo.setUser_id(parent.getC_Vo().getUser_id());
-							DAO_point.getPInsert(vo);
-							parent.showCard("com");
-						} else if (thirty.isSelected()) {
-							VO_point vo = new VO_point();
-							vo.setCharge_date(time);
-							vo.setP_attribute("사용");
-							vo.setPoint("-10000");
-							vo.setUser_id(parent.getC_Vo().getUser_id());
-							DAO_point.getPInsert(vo);
-							parent.showCard("com");
-						} else if (one.isSelected()) {
-							VO_point vo = new VO_point();
-							vo.setCharge_date(time);
-							vo.setP_attribute("사용");
-							vo.setPoint("-100");
-							vo.setUser_id(parent.getC_Vo().getUser_id());
-							DAO_point.getPInsert(vo);
-							parent.showCard("com");
-						} else if (two.isSelected()) {
-							VO_point vo = new VO_point();
-							vo.setCharge_date(time);
-							vo.setP_attribute("사용");
-							vo.setPoint("-200");
-							vo.setUser_id(parent.getC_Vo().getUser_id());
-							DAO_point.getPInsert(vo);
-							parent.showCard("com");
-						} else if (three.isSelected()) {
-							VO_point vo = new VO_point();
-							vo.setCharge_date(time);
-							vo.setP_attribute("사용");
-							vo.setPoint("-300");
-							vo.setUser_id(parent.getC_Vo().getUser_id());
-							DAO_point.getPInsert(vo);
-							parent.showCard("com");
-						} else if (four.isSelected()) {
-							VO_point vo = new VO_point();
-							vo.setCharge_date(time);
-							vo.setP_attribute("사용");
-							vo.setPoint("-400");
-							vo.setUser_id(parent.getC_Vo().getUser_id());
-							DAO_point.getPInsert(vo);
-							parent.showCard("com");
-						} else if (five.isSelected()) {
-							VO_point vo = new VO_point();
-							vo.setCharge_date(time);
-							vo.setP_attribute("사용");
-							vo.setPoint("-500");
-							vo.setUser_id(parent.getC_Vo().getUser_id());
-							DAO_point.getPInsert(vo);
-							parent.showCard("com");
-						}
+					if (ten.isSelected() && Integer.parseInt(parent.getC_Vo().getPoint()) < 8000) {
+						JOptionPane.showMessageDialog(getParent(), "잔액이 부족합니다. 포인트를 충전해주세요.");
+					} else if (ten.isSelected() && Integer.parseInt(parent.getC_Vo().getPoint()) >= 8000) {
+						VO_point vo = new VO_point();
+						vo.setCharge_date(time);
+						vo.setP_attribute("사용");
+						vo.setPoint("-8000");
+						vo.setUser_id(parent.getC_Vo().getUser_id());
+						DAO_point.getPInsert(vo);
+
+						VO_ticketbuy vo_t = new VO_ticketbuy();
+						vo_t.setBuy_date(time);
+						vo_t.setPrice(vo.getPoint());
+						vo_t.setTicket_id(ten.getText());
+						vo_t.setUser_id(parent.getC_Vo().getUser_id());
+						DAO_ticketbuy.getTInsert(vo_t);
+
+						/*
+						 * VO vo_c = parent.getC_Vo(); vo_c.setTicket_id(ten.getText());
+						 * DAO.getInsert(vo_c);
+						 */
+
+						parent.showCard("com");
+						((ticket_com) parent.getP("com")).ticketCom();
+					} else if (twenty.isSelected() && Integer.parseInt(parent.getC_Vo().getPoint()) < 9000) {
+						JOptionPane.showMessageDialog(getParent(), "잔액이 부족합니다. 포인트를 충전해주세요.");
+					} else if (twenty.isSelected() && Integer.parseInt(parent.getC_Vo().getPoint()) >= 9000) {
+						VO_point vo = new VO_point();
+						vo.setCharge_date(time);
+						vo.setP_attribute("사용");
+						vo.setPoint("-9000");
+						vo.setUser_id(parent.getC_Vo().getUser_id());
+
+						DAO_point.getPInsert(vo);
+
+						VO_ticketbuy vo_t = new VO_ticketbuy();
+						vo_t.setBuy_date(time);
+						vo_t.setPrice(vo.getPoint());
+						vo_t.setTicket_id(twenty.getText());
+						vo_t.setUser_id(parent.getC_Vo().getUser_id());
+						DAO_ticketbuy.getTInsert(vo_t);
+						((ticket_com) parent.getP("com")).ticketCom();
+						parent.showCard("com");
+					} else if (thirty.isSelected() && Integer.parseInt(parent.getC_Vo().getPoint()) < 10000) {
+						JOptionPane.showMessageDialog(getParent(), "잔액이 부족합니다. 포인트를 충전해주세요.");
+
+					} else if (thirty.isSelected() && Integer.parseInt(parent.getC_Vo().getPoint()) >= 10000) {
+						VO_point vo = new VO_point();
+						vo.setCharge_date(time);
+						vo.setP_attribute("사용");
+						vo.setPoint("-10000");
+						vo.setUser_id(parent.getC_Vo().getUser_id());
+
+						DAO_point.getPInsert(vo);
+
+						VO_ticketbuy vo_t = new VO_ticketbuy();
+						vo_t.setBuy_date(time);
+						vo_t.setPrice(vo.getPoint());
+						vo_t.setTicket_id(thirty.getText());
+						vo_t.setUser_id(parent.getC_Vo().getUser_id());
+						DAO_ticketbuy.getTInsert(vo_t);
+						((ticket_com) parent.getP("com")).ticketCom();
+						parent.showCard("com");
+					} else if (one.isSelected() && Integer.parseInt(parent.getC_Vo().getPoint()) < 100) {
+						JOptionPane.showMessageDialog(getParent(), "잔액이 부족합니다. 포인트를 충전해주세요.");
+
+					} else if (one.isSelected() && Integer.parseInt(parent.getC_Vo().getPoint()) >= 100) {
+						VO_point vo = new VO_point();
+						vo.setCharge_date(time);
+						vo.setP_attribute("사용");
+						vo.setPoint("-100");
+						vo.setUser_id(parent.getC_Vo().getUser_id());
+
+						DAO_point.getPInsert(vo);
+
+						VO_ticketbuy vo_t = new VO_ticketbuy();
+						vo_t.setBuy_date(time);
+						vo_t.setPrice(vo.getPoint());
+						vo_t.setTicket_id(one.getText());
+						vo_t.setUser_id(parent.getC_Vo().getUser_id());
+						DAO_ticketbuy.getTInsert(vo_t);
+						((ticket_com) parent.getP("com")).ticketCom();
+						parent.showCard("com");
+					} else if (two.isSelected() && Integer.parseInt(parent.getC_Vo().getPoint()) < 200) {
+						JOptionPane.showMessageDialog(getParent(), "잔액이 부족합니다. 포인트를 충전해주세요.");
+
+					} else if (two.isSelected() && Integer.parseInt(parent.getC_Vo().getPoint()) >= 200) {
+						VO_point vo = new VO_point();
+						vo.setCharge_date(time);
+						vo.setP_attribute("사용");
+						vo.setPoint("-200");
+						vo.setUser_id(parent.getC_Vo().getUser_id());
+
+						DAO_point.getPInsert(vo);
+
+						VO_ticketbuy vo_t = new VO_ticketbuy();
+						vo_t.setBuy_date(time);
+						vo_t.setPrice(vo.getPoint());
+						vo_t.setTicket_id(two.getText());
+						vo_t.setUser_id(parent.getC_Vo().getUser_id());
+						DAO_ticketbuy.getTInsert(vo_t);
+						((ticket_com) parent.getP("com")).ticketCom();
+						parent.showCard("com");
+					} else if (three.isSelected() && Integer.parseInt(parent.getC_Vo().getPoint()) < 300) {
+						JOptionPane.showMessageDialog(getParent(), "잔액이 부족합니다. 포인트를 충전해주세요.");
+
+					} else if (three.isSelected() && Integer.parseInt(parent.getC_Vo().getPoint()) >= 300) {
+						VO_point vo = new VO_point();
+						vo.setCharge_date(time);
+						vo.setP_attribute("사용");
+						vo.setPoint("-300");
+						vo.setUser_id(parent.getC_Vo().getUser_id());
+
+						DAO_point.getPInsert(vo);
+
+						VO_ticketbuy vo_t = new VO_ticketbuy();
+						vo_t.setBuy_date(time);
+						vo_t.setPrice(vo.getPoint());
+						vo_t.setTicket_id(three.getText());
+						vo_t.setUser_id(parent.getC_Vo().getUser_id());
+						DAO_ticketbuy.getTInsert(vo_t);
+						((ticket_com) parent.getP("com")).ticketCom();
+						parent.showCard("com");
+					} else if (four.isSelected() && Integer.parseInt(parent.getC_Vo().getPoint()) < 400) {
+						JOptionPane.showMessageDialog(getParent(), "잔액이 부족합니다. 포인트를 충전해주세요.");
+
+					} else if (four.isSelected() && Integer.parseInt(parent.getC_Vo().getPoint()) >= 400) {
+						VO_point vo = new VO_point();
+						vo.setCharge_date(time);
+						vo.setP_attribute("사용");
+						vo.setPoint("-400");
+						vo.setUser_id(parent.getC_Vo().getUser_id());
+
+						DAO_point.getPInsert(vo);
+						VO_ticketbuy vo_t = new VO_ticketbuy();
+						vo_t.setBuy_date(time);
+						vo_t.setPrice(vo.getPoint());
+						vo_t.setTicket_id(four.getText());
+						vo_t.setUser_id(parent.getC_Vo().getUser_id());
+						DAO_ticketbuy.getTInsert(vo_t);
+
+						((ticket_com) parent.getP("com")).ticketCom();
+						parent.showCard("com");
+					} else if (five.isSelected() && Integer.parseInt(parent.getC_Vo().getPoint()) < 500) {
+						JOptionPane.showMessageDialog(getParent(), "잔액이 부족합니다. 포인트를 충전해주세요.");
+
+					} else if (five.isSelected() && Integer.parseInt(parent.getC_Vo().getPoint()) >= 500) {
+						VO_point vo = new VO_point();
+						vo.setCharge_date(time);
+						vo.setP_attribute("사용");
+						vo.setPoint("-500");
+						vo.setUser_id(parent.getC_Vo().getUser_id());
+
+						DAO_point.getPInsert(vo);
+
+						VO_ticketbuy vo_t = new VO_ticketbuy();
+						vo_t.setBuy_date(time);
+						vo_t.setPrice(vo.getPoint());
+						vo_t.setTicket_id(five.getText());
+						vo_t.setUser_id(parent.getC_Vo().getUser_id());
+						DAO_ticketbuy.getTInsert(vo_t);
+						((ticket_com) parent.getP("com")).ticketCom();
+						parent.showCard("com");
+					}
 				}
 			}
 		});
@@ -169,16 +262,16 @@ public class ticket_buy extends JPanel {
 		jp2.add(jp2_1);
 		jp2_1.setLayout(new GridLayout(5, 1));
 
-		ten = new JRadioButton("10일권(8000캐쉬)  ");
+		ten = new JRadioButton("10일권(8000포인트)  ");
 		ten.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		ten.setHorizontalAlignment(SwingConstants.CENTER);
 		jp2_1.add(ten);
 
-		twenty = new JRadioButton("20일권(9000캐쉬)  ");
+		twenty = new JRadioButton("20일권(9000포인트)  ");
 		twenty.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		jp2_1.add(twenty);
 
-		thirty = new JRadioButton("30일권(10000캐쉬)");
+		thirty = new JRadioButton("30일권(10000포인트)");
 		thirty.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		jp2_1.add(thirty);
 
@@ -187,25 +280,25 @@ public class ticket_buy extends JPanel {
 		jp2_2.setBorder(BorderFactory.createTitledBorder("일회권"));
 		jp2_2.setLayout(new GridLayout(5, 1));
 
-		one = new JRadioButton("1시간(100캐쉬)       ");
+		one = new JRadioButton("1시간(100포인트)       ");
 		one.setHorizontalAlignment(SwingConstants.CENTER);
 		one.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		jp2_2.add(one);
 
-		two = new JRadioButton("2시간(200캐쉬)       ");
+		two = new JRadioButton("2시간(200포인트)       ");
 		two.setHorizontalAlignment(SwingConstants.CENTER);
 		two.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		jp2_2.add(two);
 
-		three = new JRadioButton("3시간(300캐쉬)          ");
+		three = new JRadioButton("3시간(300포인트)          ");
 		three.setHorizontalAlignment(SwingConstants.CENTER);
 		jp2_2.add(three);
 
-		four = new JRadioButton("4시간(400캐쉬)       ");
+		four = new JRadioButton("4시간(400포인트)       ");
 		four.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		jp2_2.add(four);
 
-		five = new JRadioButton("5시간(500캐쉬)       ");
+		five = new JRadioButton("5시간(500포인트)       ");
 		five.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		jp2_2.add(five);
 

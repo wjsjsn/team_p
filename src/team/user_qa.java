@@ -1,6 +1,7 @@
 package team;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -193,6 +194,7 @@ public class user_qa extends JPanel {
 		title_tf = new JTextField();
 		title_tf.setEditable(false);
 		title_tf.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		title_tf.setBackground(Color.white);
 		jp3.add(title_lb);
 		jp3.add(title_tf);
 		title_tf.setColumns(10);
@@ -201,6 +203,7 @@ public class user_qa extends JPanel {
 		id_tf = new JTextField();
 		id_tf.setEditable(false);
 		id_tf.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		id_tf.setBackground(Color.white);
 		jp3.add(id_lb);
 		jp3.add(id_tf);
 		id_tf.setColumns(10);
@@ -209,6 +212,7 @@ public class user_qa extends JPanel {
 		time_tf = new JTextField();
 		time_tf.setEditable(false);
 		time_tf.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		time_tf.setBackground(Color.white);
 		jp3.add(time_lb);
 		jp3.add(time_tf);
 		time_tf.setColumns(10);
@@ -222,6 +226,7 @@ public class user_qa extends JPanel {
 
 		qatf = new JTextArea();
 		qatf.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		qatf.setBackground(Color.white);
 		scrollPane.setViewportView(qatf);
 		qatf.setEditable(false);
 
@@ -247,6 +252,7 @@ public class user_qa extends JPanel {
 		
 		a_title_fd = new JTextField();
 		a_title_fd.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		a_title_fd.setBackground(Color.white);		
 		a_title_fd.setEditable(false);
 		a_title_fd.setColumns(10);
 		jp7.add(a_title_fd);
@@ -256,6 +262,7 @@ public class user_qa extends JPanel {
 		
 		a_id_fd = new JTextField();
 		a_id_fd.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		a_id_fd.setBackground(Color.white);
 		a_id_fd.setEditable(false);
 		a_id_fd.setColumns(10);
 		jp7.add(a_id_fd);
@@ -265,6 +272,8 @@ public class user_qa extends JPanel {
 		
 		a_time_fd = new JTextField();
 		a_time_fd.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		a_time_fd.setBackground(Color.white);
+		a_time_fd.setBackground(Color.white);
 		a_time_fd.setEditable(false);
 		a_time_fd.setColumns(10);
 		jp7.add(a_time_fd);
@@ -278,6 +287,7 @@ public class user_qa extends JPanel {
 
 		a_tf = new JTextArea();
 		a_tf.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		a_tf.setBackground(Color.white);
 		a_tf.setEditable(false);
 		scrollPane_1.setViewportView(a_tf);
 	}

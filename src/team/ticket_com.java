@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 
 import mybatis.VO_ticketbuy;
 
@@ -80,10 +81,13 @@ public class ticket_com extends JPanel {
 
 		jp2 = new JPanel();
 		jp2.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		jp2.setLayout(new BorderLayout(0, 0));
 
 		jta = new JTextArea(5, 20);
 		jta.setEditable(false);
 		jta.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
+		jta.setBackground(Color.white);
+		jta.setBorder(new LineBorder(Color.DARK_GRAY));
 		jp2.add(jta);
 		
 
@@ -110,10 +114,13 @@ public class ticket_com extends JPanel {
 		add(jp3, BorderLayout.SOUTH);
 	}
 	
-	public void ticketCom() {
-		jta.append("\n");
-		jta.append("이용권 구매 번호 : " + parent.getT_Vo().getBuy_num() + "\n");
-		jta.append("이용권 이름 : " + parent.getT_Vo().getTicket_id() + "\n");
-		jta.append("이용권 구매 날짜 : " + parent.getT_Vo().getBuy_date());
-	}
+	
+	  public void ticketCom() {
+	  
+	  jta.append("\n"); jta.append("이용권 구매 번호 : " + parent.getT_Vo().getBuy_num() +
+	  "\n"); jta.append("이용권 이름 : " + parent.getT_Vo().getTicket_id() + "\n");
+	  jta.append("이용권 구매 날짜 : " + parent.getT_Vo().getBuy_date());
+	  
+	  }
+
 }

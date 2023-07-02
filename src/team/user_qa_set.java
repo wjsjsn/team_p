@@ -1,6 +1,7 @@
 package team;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -121,6 +122,7 @@ public class user_qa_set extends JPanel {
 		title_lb.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		title_tf = new JTextField();
 		title_tf.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		title_tf.setBackground(Color.white);
 		panel_4.add(title_lb);
 		panel_4.add(title_tf);
 		title_tf.setColumns(20);
@@ -133,6 +135,7 @@ public class user_qa_set extends JPanel {
 		panel_5.add(scrollPane);
 
 		qatf = new JTextArea();
+		qatf.setBackground(Color.white);
 		scrollPane.setViewportView(qatf);
 
 		panel_3 = new JPanel();
@@ -159,6 +162,7 @@ public class user_qa_set extends JPanel {
 
 		textArea_1 = new JTextArea();
 		textArea_1.setEditable(false);
+		textArea_1.setBackground(Color.white);
 		scrollPane_1.setViewportView(textArea_1);
 	}
 

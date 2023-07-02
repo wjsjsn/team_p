@@ -79,7 +79,8 @@ public class user_main extends JPanel {
 		point_bt.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				parent.showCard("point");					
+				parent.showCard("point");	
+				((user_point)parent.getP("point")).setP();
 			}
 		});
 

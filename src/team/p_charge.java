@@ -50,56 +50,14 @@ public class p_charge extends JPanel {
 		charge_bt.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String charge = charge_tf.getText();
-				String num = "[0-9]+";
-				time = new Timestamp(System.currentTimeMillis());
-				if (charge.equals("")) {
-					JOptionPane.showMessageDialog(getParent(), "충전할 포인트를 입력해주세요.");
-				} else if (!charge.matches(num)) {
-					JOptionPane.showMessageDialog(getParent(), "숫자만 입력해주세요.");
-					charge_tf.setText("");
-					charge_tf.requestFocus();
-				} else {
-					JOptionPane.showMessageDialog(getParent(), charge + "포인트를 충전했습니다.");
-					VO_point vo = new VO_point();
-					vo.setCharge_date(time);
-					vo.setP_attribute("충전");
-					vo.setPoint(charge);
-					vo.setUser_id(parent.getC_Vo().getUser_id());
-					DAO_point.getPInsert(vo);
-					int sum = Integer.parseInt(parent.getC_Vo().getPoint()) + Integer.parseInt(charge);
-					parent.getC_Vo().setPoint(Integer.toString(sum));
-					parent.showCard("point");
-					charge_tf.setText("");
-				}
+			charge();
 			}
 		});
 
 		charge_tf.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String charge = charge_tf.getText();
-				String num = "[0-9]+";
-				time = new Timestamp(System.currentTimeMillis());
-				if (charge.equals("")) {
-					JOptionPane.showMessageDialog(getParent(), "충전할 포인트를 입력해주세요.");
-				} else if (!charge.matches(num)) {
-					JOptionPane.showMessageDialog(getParent(), "숫자만 입력해주세요.");
-					charge_tf.setText("");
-					charge_tf.requestFocus();
-				} else {
-					JOptionPane.showMessageDialog(getParent(), charge + "포인트를 충전했습니다.");
-					VO_point vo = new VO_point();
-					vo.setCharge_date(time);
-					vo.setP_attribute("충전");
-					vo.setPoint(charge);
-					vo.setUser_id(parent.getC_Vo().getUser_id());
-					DAO_point.getPInsert(vo);
-					int sum = Integer.parseInt(parent.getC_Vo().getPoint()) + Integer.parseInt(charge);
-					parent.getC_Vo().setPoint(Integer.toString(sum));
-					parent.showCard("point");
-					charge_tf.setText("");
-				}
+				charge();
 			}
 		});
 
@@ -150,5 +108,31 @@ public class p_charge extends JPanel {
 		charge_bt = new JButton("  충전하기  ");
 		jp4.add(charge_bt);
 		charge_bt.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+	}
+	
+	public void charge() {
+		String charge = charge_tf.getText();
+		String num = "[0-9]+";
+		time = new Timestamp(System.currentTimeMillis());
+		if (charge.equals("")) {
+			JOptionPane.showMessageDialog(getParent(), "충전할 포인트를 입력해주세요.");
+		} else if (!charge.matches(num)) {
+			JOptionPane.showMessageDialog(getParent(), "숫자만 입력해주세요.");
+			charge_tf.setText("");
+			charge_tf.requestFocus();
+		} else {
+			JOptionPane.showMessageDialog(getParent(), charge + "포인트를 충전했습니다.");
+			VO_point vo = new VO_point();
+			vo.setCharge_date(time);
+			vo.setP_attribute("충전");
+			vo.setPoint(charge);
+			vo.setUser_id(parent.getC_Vo().getUser_id());
+			DAO_point.getPInsert(vo);
+			int sum = Integer.parseInt(parent.getC_Vo().getPoint()) + Integer.parseInt(charge);
+			parent.getC_Vo().setPoint(Integer.toString(sum));
+			((user_point)parent.getP("point")).setP();
+			parent.showCard("point");
+			charge_tf.setText("");
+		}
 	}
 }

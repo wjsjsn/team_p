@@ -42,6 +42,7 @@ private static SqlSession ss;
 	
 	public static VO_ticketbuy tOne(String id) {
 		VO_ticketbuy vo = getSession().selectOne("tOne", id);
+		ss.commit();
 		return vo;
 	}
 

@@ -22,12 +22,12 @@ public class VO_point {
 		this.user_id = user_id;
 	}
 
-	public String getPoint() {
-		return point;
+	public String getPoint() {		
+		return point;		
 	}
 
 	public void setPoint(String point) {
-		this.point = point;
+		this.point = point;			
 	}
 
 	public String getP_attribute() {

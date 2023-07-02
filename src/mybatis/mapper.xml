@@ -34,6 +34,16 @@
 		delete from CUST_TABLE where user_id = #{user_id}
 	</delete>
 	
+	<update id="userUp"  parameterType="mybatis.VO">
+	 update cust_table set (ticket_id, TICKET_BUY_NUM) = (SELECT TICKET_ID, BUY_NUM FROM TICKET_BUY
+     WHERE BUY_NUM = (SELECT MAX(BUY_NUM) FROM  TICKET_BUY WHERE USER_ID = #{user_id}))
+     where CUST_TABLE.USER_ID = #{user_id}</update>
+	
+	<!-- 
+	<update id="userUp" parameterType="mybatis.VO">
+		
+	</update>
+	 -->
 	
 	<!-- qa -->
 	 <select id="userqa_all" resultType="mybatis.VO_qa">
@@ -91,12 +101,12 @@
 	<insert id="t_Ins" parameterType="mybatis.VO_ticketbuy">
 		insert into ticket_buy(buy_num ,user_id, ticket_id, price, buy_date)
 		values(seq_ticket_buy_num.nextval, #{user_id}, #{ticket_id}, #{price}, #{buy_date})
-	</insert>
+	</insert>	
 	
 	
 	<select id="tOne" parameterType="String"
 		resultType="mybatis.VO_ticketbuy">
-		select * from ticketbuy where user_id = #{user_id}
+		select * from ticket_buy where buy_num = #{buy_num}
 	</select> 
 	
 </mapper>

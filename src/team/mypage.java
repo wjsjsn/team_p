@@ -141,6 +141,7 @@ public class mypage extends JPanel {
 		jp4 = new JPanel();
 		jp4.setBorder(BorderFactory.createTitledBorder("  회원 정보  "));
 		add(jp4);
+		jp4.setLayout(new BorderLayout(0, 0));
 
 		jta = new JTextArea(5, 30);
 		jta.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
@@ -178,6 +179,7 @@ public class mypage extends JPanel {
 	}
 	
 	public void setText() {
+		jta.append(""+"\n");
 		jta.append("회원 아이디: " + parent.getC_Vo().getUser_id() + "\n");
 		jta.append("회원 전화번호: " + parent.getC_Vo().getUser_phone() + "\n");
 		if (parent.getC_Vo().getTicket_id() == null) {

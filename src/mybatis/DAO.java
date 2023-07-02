@@ -54,4 +54,10 @@ public class DAO {
 			ss.commit();
 			return list;
 		}
+		
+		public static int getUp(VO vo) {
+			int result = getSession().update("userUp", vo);
+			ss.commit();
+			return result;
+		}
 }

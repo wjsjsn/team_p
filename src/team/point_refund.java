@@ -48,7 +48,7 @@ public class point_refund extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int res = JOptionPane.showConfirmDialog(getParent(), "포인트를 환불 받으시겠습니까?", "포인트 환불",
 						JOptionPane.OK_CANCEL_OPTION);
-				 time = new Timestamp(System.currentTimeMillis());
+				time = new Timestamp(System.currentTimeMillis());
 				while (res == 0) {
 					String set = JOptionPane.showInputDialog("포인트 입력 : ");
 					if (set == null) {
@@ -58,15 +58,16 @@ public class point_refund extends JPanel {
 					} else if (set != null) {
 						String num = "[0-9]+";
 						if (set.matches(num)) {
-							JOptionPane.showMessageDialog(getParent(),set + "포인트 환불이 완료되었습니다.");
+							JOptionPane.showMessageDialog(getParent(), set + "포인트 환불이 완료되었습니다.");
 							VO_point vo = new VO_point();
 							vo.setCharge_date(time);
 							vo.setP_attribute("환불");
-							vo.setPoint("-"+set);
-							vo.setUser_id(parent.getC_Vo().getUser_id());					
+							vo.setPoint("-" + set);
+							vo.setUser_id(parent.getC_Vo().getUser_id());
 							DAO_point.getPInsert(vo);
 							int sum = Integer.parseInt(parent.getC_Vo().getPoint()) + Integer.parseInt("-" + set);
 							parent.getC_Vo().setPoint(Integer.toString(sum));
+							refund_tf();
 							parent.showCard("point");
 							break;
 						} else {
@@ -135,7 +136,7 @@ public class point_refund extends JPanel {
 		refund_bt.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		jp5.add(refund_bt);
 	}
-	
+
 	public void refund_tf() {
 		refund_tf.setText(parent.getC_Vo().getPoint());
 	}

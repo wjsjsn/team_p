@@ -151,7 +151,7 @@ public class user_panel extends JPanel {
 	
 	public VO_ticketbuy getT_Vo() {
 		if(c_Vo != null) {
-			t_Vo = DAO_ticketbuy.tOne(t_Vo.getUser_id());
+			t_Vo = DAO_ticketbuy.tOne(c_Vo.getTicket_id());
 		}
 		return t_Vo;
 	}

@@ -3,9 +3,17 @@ package mybatis;
 import java.sql.Timestamp;
 
 public class VO {
-	private String user_id, user_phone, user_password, point, ticket_id;
+	private String user_id, user_phone, user_password, point, ticket_id, ticket_buy_num;
 	private Timestamp join_date;
 	
+	public String getTicket_buy_num() {
+		return ticket_buy_num;
+	}
+
+	public void setTicket_buy_num(String ticket_buy_num) {
+		this.ticket_buy_num = ticket_buy_num;
+	}
+
 	public String getUser_id() {
 		return user_id;
 	}
