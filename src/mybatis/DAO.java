@@ -1,5 +1,7 @@
 package mybatis;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 public class DAO {
@@ -39,10 +41,17 @@ public class DAO {
 			ss.commit();
 			return result;
 		}
-
-//		public static int getUpdate(VO vo) {
-//			int result = getSession().update("custUp", vo);
-//			ss.commit();
-//			return result;
-//		}
+		
+		public static VO getPwf(VO vo) {
+			VO voo = getSession().selectOne("userpwf", vo);
+			ss.commit();
+			return voo;
+		}
+		
+		public static List<VO> getId(String phone) {
+			List<VO> list =  null;
+			list = getSession().selectList("idf", phone);
+			ss.commit();
+			return list;
+		}
 }

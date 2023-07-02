@@ -1,5 +1,6 @@
 package team;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -41,6 +42,7 @@ public class seat_com extends JPanel {
 		mypage_bt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				parent.showCard("mypage");
+				((mypage)parent.getP("mypage")).setText();
 			}
 		});
 	}
@@ -67,6 +69,7 @@ public class seat_com extends JPanel {
 		jta = new JTextArea(10, 15);
 		jta.setTabSize(10);
 		jta.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		jta.setBackground(Color.white);
 		jta.setEditable(false);
 		jsp = new JScrollPane(jta, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

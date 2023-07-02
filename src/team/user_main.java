@@ -79,8 +79,7 @@ public class user_main extends JPanel {
 		point_bt.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				parent.showCard("point");
-					
+				parent.showCard("point");					
 			}
 		});
 
@@ -165,8 +164,8 @@ public class user_main extends JPanel {
 		jp5.add(jp7);
 		jp7.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		welcome_lb = new JLabel("@@@님 환영합니다");
-		welcome_lb.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		welcome_lb = new JLabel();
+		welcome_lb.setFont(new Font("맑은 고딕", Font.BOLD, 15));
 		jp7.add(welcome_lb);
 
 		jp8 = new JPanel();
@@ -185,7 +184,7 @@ public class user_main extends JPanel {
 		jp13.setLayout(new GridLayout(2, 0, 0, 0));
 
 		jp14 = new JPanel();
-		jp14.setBorder(new EmptyBorder(20, 20, 20, 20));
+		jp14.setBorder(new EmptyBorder(40, 20, 40, 20));
 		jp13.add(jp14);
 		jp14.setLayout(new BorderLayout(0, 0));
 
@@ -235,7 +234,7 @@ public class user_main extends JPanel {
 		jp14.add(notice_lb, BorderLayout.NORTH);
 
 		jp15 = new JPanel();
-		jp15.setBorder(new EmptyBorder(20, 20, 40, 20));
+		jp15.setBorder(new EmptyBorder(0, 20, 60, 20));
 		jp13.add(jp15);
 		jp15.setLayout(new BorderLayout(0, 0));
 
@@ -293,5 +292,9 @@ public class user_main extends JPanel {
 		}else {
 			notice_list.setListData(new String[] {});
 		}
+	}
+	
+	public void set_id(String id) {
+			welcome_lb.setText(id + "님 환영합니다!");
 	}
 }

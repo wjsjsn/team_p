@@ -55,6 +55,7 @@ public class user_point extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				parent.showCard("main");
+				p_box.setSelectedIndex(0);
 			}
 		});
 
@@ -64,6 +65,7 @@ public class user_point extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				parent.showCard("p_refund");
 				((point_refund) parent.getP("p_refund")).refund_tf();
+				p_box.setSelectedIndex(0);
 			}
 		});
 
@@ -72,6 +74,8 @@ public class user_point extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				parent.showCard("charge");
+				p_box.setSelectedIndex(0);
+				
 			}
 		});
 
@@ -80,11 +84,14 @@ public class user_point extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				JComboBox<String> box = (JComboBox<String>) e.getSource();
 				int index = box.getSelectedIndex();
+		    if(index == 0) {    
+			   list.setListData(new String[] {});
+			}else if (index == 1) {
 				// 사용
-				if (index == 1) {
+					((user_point) parent.getP("point")).initp_use_List();
 					// 환불
 				} else if (index == 2) {
-
+					((user_point) parent.getP("point")).initp_refund_List();
 					// 충전
 				} else if (index == 3) {
 					((user_point) parent.getP("point")).initp_charge_List();
@@ -150,7 +157,7 @@ public class user_point extends JPanel {
 		textField_5.setFont(new Font("맑은 고딕", Font.BOLD, 15));
 		textField_5.setBackground(Color.white);
 		textField_5.setEditable(false);
-		textField_5.setColumns(10);
+		textField_5.setColumns(15);
 		panel_2.add(textField_5);
 
 		jp3 = new JPanel();
@@ -167,8 +174,6 @@ public class user_point extends JPanel {
 
 		p_box = new JComboBox<String>(p_com);
 		p_box.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		// p_box.setModel(new DefaultComboBoxModel(new String[] {"선택해주세요", "포인트 사용내역",
-		// "포인트 환불내역", "포인트 충전내역" }));
 		p_box.setSelectedIndex(0);
 		jsp.setColumnHeaderView(p_box);
 
@@ -197,7 +202,39 @@ public class user_point extends JPanel {
 			int i = 0;
 			for (VO_point k : p_list) {
 				if (k.getUser_id().equals(parent.getC_Vo().getUser_id())) {
-					p_Arr[i++] = "            " +k.getPoint_num() + "               " + k.getPoint() + "                     " + k.getCharge_date().toString();
+					p_Arr[i++] = "          " +k.getPoint_num() + "                     " + k.getPoint() + "               " + k.getCharge_date().toString();
+				}
+			}
+			list.setListData(p_Arr);
+		} else {
+			list.setListData(new String[] {});
+		}
+	}
+	
+	public void initp_refund_List() {
+		p_list = DAO_point.p_All("환불");
+		if (p_list.size() > 0) {
+			String[] p_Arr = new String[p_list.size()];
+			int i = 0;
+			for (VO_point k : p_list) {
+				if (k.getUser_id().equals(parent.getC_Vo().getUser_id())) {
+					p_Arr[i++] = "          " +k.getPoint_num() + "                     " + k.getPoint() + "               " + k.getCharge_date().toString();
+				}
+			}
+			list.setListData(p_Arr);
+		} else {
+			list.setListData(new String[] {});
+		}
+	}
+	
+	public void initp_use_List() {
+		p_list = DAO_point.p_All("사용");
+		if (p_list.size() > 0) {
+			String[] p_Arr = new String[p_list.size()];
+			int i = 0;
+			for (VO_point k : p_list) {
+				if (k.getUser_id().equals(parent.getC_Vo().getUser_id())) {
+					p_Arr[i++] = "          " +k.getPoint_num() + "                     " + k.getPoint() + "               " + k.getCharge_date().toString();
 				}
 			}
 			list.setListData(p_Arr);

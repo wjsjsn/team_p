@@ -1,6 +1,7 @@
 package team;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -92,6 +93,7 @@ public class refund extends JPanel {
 
 		use_tf = new JTextField();
 		use_tf.setEditable(false);
+		use_tf.setBackground(Color.white);
 		use_tf.setColumns(15);
 		use_tf.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
 		// 패널 2-2에 붙일 이용권 라벨(useLabel)

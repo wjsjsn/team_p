@@ -16,6 +16,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import mybatis.DAO;
+import mybatis.VO;
+
 public class user_pwf extends JPanel {
 	private user_panel parent;
 	
@@ -44,15 +47,14 @@ public class user_pwf extends JPanel {
 		pwf_bt.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {			
-				String id = id_tf.getText();
-				String phone = phone_tf.getText();
-				if(id.equals("") || phone.equals("")) {
-					JOptionPane.showMessageDialog(getParent(), "아이디, 핸드폰 번호 전부 입력해주세요.");
-				}else {					
-					JOptionPane.showMessageDialog(getParent(), "@@@님의 비밀번호는 @@@입니다.");
-					parent.showCard("login");
-					phone_tf.setText("");					
-				}
+				find_pw();
+			}
+		});
+		
+		phone_tf.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				find_pw();
 			}
 		});
 	}
@@ -96,7 +98,7 @@ public user_pwf() {
 	
 	id_tf = new JTextField();
 	jp5.add(id_tf);
-	id_tf.setFont(new Font("굴림", Font.PLAIN, 20));
+	id_tf.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
 	id_tf.setColumns(10);
 	
 	 jp6 = new JPanel();
@@ -120,7 +122,7 @@ public user_pwf() {
 	
 	phone_tf = new JTextField();
 	jp8.add(phone_tf);
-	phone_tf.setFont(new Font("굴림", Font.PLAIN, 20));
+	phone_tf.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
 	phone_tf.setColumns(10);
 	
 	 jp9 = new JPanel();
@@ -135,4 +137,26 @@ public user_pwf() {
 	back_bt.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 	jp9.add(back_bt);
 }
+
+public void find_pw() {
+	String id = id_tf.getText();
+	String phone = phone_tf.getText();
+	VO vo = new VO();
+	vo.setUser_id(id);
+	vo.setUser_phone(phone);
+	VO vo2 = DAO.getPwf(vo);
+	String num = "[0-9]+";		
+	if(id.equals("") || phone.equals("")) {
+		JOptionPane.showMessageDialog(getParent(), "아이디, 핸드폰 번호 전부 입력해주세요.");
+	}else if (phone.length() < 11 || !phone.matches(num)) {
+			JOptionPane.showMessageDialog(getParent(), "핸드폰 번호는 숫자만 010부터 모두 입력해주세요.");
+			phone_tf.setText("");
+			phone_tf.requestFocus();
+	}else if(vo2.getUser_id().equals(id)){					
+		JOptionPane.showMessageDialog(getParent(), id +"님의 비밀번호는" + vo2.getUser_password() + "입니다.");
+		parent.showCard("login");
+		phone_tf.setText("");				
+	}
+	}
 }
+

@@ -45,8 +45,14 @@ public class user_join extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				String id = id_tf.getText();
 				VO vo = DAO.getOne(id);
+		//		String eng = "[a-z]+";
 				if(id.equals("")) {
 					JOptionPane.showMessageDialog(getParent(), "아이디를 입력해주세요.");
+					/*
+					 * }else if(!id.equalsIgnoreCase(eng)) {
+					 * JOptionPane.showMessageDialog(getParent(), "아이디는 영어만 입력 가능합니다.");
+					 * id_tf.setText(""); id_tf.requestFocus();
+					 */
 				}else if(vo!=null) {
 					JOptionPane.showMessageDialog(getParent(), "이미 가입 되어있는 아이디입니다.\n 다시 입력해주세요.");
 					id_tf.setText("");
@@ -73,18 +79,25 @@ public class user_join extends JPanel {
 				String pw = new String(pw_tf.getPassword());
 				String pwf = new String(pw_tf2.getPassword());
 				String num = "[0-9]+";
+			//	String eng = "[a-z]+";
 				time = new Timestamp(System.currentTimeMillis());
 				VO vo = DAO.getOne(id);
 				
 				if (id.equals("") || phone.equals("") || pw.equals("") || pwf.equals("")) {
 					JOptionPane.showMessageDialog(getParent(), "전부 입력해주세요.");
-				} else if (pw.length() < 6) {
+					/*
+					 * }else if(!pw.equalsIgnoreCase(eng)||!pwf.equalsIgnoreCase(eng)) {
+					 * JOptionPane.showMessageDialog(getParent(), "전부 영어만 입력해주세요.");
+					 * id_tf.setText(""); id_tf.requestFocus(); pw_tf.setText("");
+					 * pw_tf2.setText("");
+					 */
+			}else if (pw.length() < 6) {
 					JOptionPane.showMessageDialog(getParent(), "비밀번호는 6자리 이상 입력해주세요.");
 					pw_tf.setText("");
 					pw_tf2.setText("");
 					pw_tf.requestFocus();
 				} else if (phone.length() < 11 || !phone.matches(num)) {
-					JOptionPane.showMessageDialog(getParent(), "핸드폰 번호는 숫자만 010부터 입력해주세요.");
+					JOptionPane.showMessageDialog(getParent(), "핸드폰 번호는 숫자만 010부터 모두 입력해주세요.");
 					phone_tf.setText("");
 					phone_tf.requestFocus();
 				} else if(id.equals(pw)||id.equals(pwf) ) {
@@ -97,7 +110,7 @@ public class user_join extends JPanel {
 					id_tf.setText("");
 					id_tf.requestFocus();
 				} else {
-					JOptionPane.showMessageDialog(getParent(), "@@@님 @@@스터디카페에 오신 것을 환영합니다!");
+					JOptionPane.showMessageDialog(getParent(), id+"님 @@@스터디카페에 오신 것을 환영합니다!");
 					
 					VO vo2 = new VO();
 					vo2.setUser_id(id);

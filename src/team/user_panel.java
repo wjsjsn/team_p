@@ -7,8 +7,10 @@ import java.util.TreeMap;
 
 import javax.swing.JPanel;
 
+import mybatis.DAO;
+import mybatis.DAO_ticketbuy;
 import mybatis.VO;
-import mybatis.VO_qa;
+import mybatis.VO_ticketbuy;
 
 public class user_panel extends JPanel {
 	private CardLayout cl;
@@ -33,6 +35,7 @@ public class user_panel extends JPanel {
 	private user_point point;
 	private p_charge charge;
 	private VO c_Vo;
+	private VO_ticketbuy t_Vo;
 
 	private TreeMap<String, JPanel> cardp;
 
@@ -136,11 +139,25 @@ public class user_panel extends JPanel {
 	}
 
 	public VO getC_Vo() {
-		return c_Vo;
+		   if(c_Vo != null) {
+	            c_Vo = DAO.getOne(c_Vo.getUser_id());
+	        }
+	        return c_Vo;
 	}
 
 	public void setC_Vo(VO c_Vo) {
 		this.c_Vo = c_Vo;
+	}
+	
+	public VO_ticketbuy getT_Vo() {
+		if(c_Vo != null) {
+			t_Vo = DAO_ticketbuy.tOne(t_Vo.getUser_id());
+		}
+		return t_Vo;
+	}
+	
+	public void setT_Vo(VO_ticketbuy t_Vo) {
+		this.t_Vo = t_Vo;
 	}
 
 	public void showCard(String cardName) {

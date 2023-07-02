@@ -15,6 +15,16 @@
 		select * from CUST_TABLE where user_id = #{user_id}
 	</select> 
 
+	<select id="userpwf" parameterType="mybatis.VO"
+		resultType="mybatis.VO">
+		select * from CUST_TABLE where user_id = #{user_id} and user_phone = #{user_phone}
+	</select> 
+
+	<select id="idf" parameterType="String"
+		resultType="mybatis.VO">
+		select * from CUST_TABLE where user_phone = #{user_phone}
+	</select> 
+
 	<insert id="userIns" parameterType="mybatis.VO">
 		insert into CUST_TABLE(user_id, user_phone, user_password, join_date, point)
 		values(#{user_id}, #{user_phone}, #{user_password}, #{join_date}, #{point})
@@ -58,11 +68,35 @@
 	
 	<select id="p_All" parameterType="String"
 		resultType="mybatis.VO_point">
-		select * from point where p_attribute = #{p_attribute} order by charge_date desc
+		select * from point where p_attribute = #{p_attribute} order by charge_date 
 	</select> 
 	
 	<insert id="p_Ins" parameterType="mybatis.VO_point">
 		insert into point(point_num ,user_id, point, p_attribute, charge_date)
 		values(seq_point_point_num.nextval, #{user_id}, #{point}, #{p_attribute}, #{charge_date})
 	</insert>
+	
+	<!-- ticket -->
+	
+	<select id="t_All" parameterType="String"
+		resultType="mybatis.VO_ticketbuy">
+		select * from ticket_buy where user_id = #{user_id} order by buy_date 
+	</select> 
+	
+	<delete id="t_refund" parameterType="String">
+		delete from ticket_buy where buy_num = #{buy_num}
+	</delete> 
+	
+	
+	<insert id="t_Ins" parameterType="mybatis.VO_ticketbuy">
+		insert into ticket_buy(buy_num ,user_id, ticket_id, price, buy_date)
+		values(seq_ticket_buy_num.nextval, #{user_id}, #{ticket_id}, #{price}, #{buy_date})
+	</insert>
+	
+	
+	<select id="tOne" parameterType="String"
+		resultType="mybatis.VO_ticketbuy">
+		select * from ticketbuy where user_id = #{user_id}
+	</select> 
+	
 </mapper>

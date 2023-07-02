@@ -284,5 +284,6 @@ public class user_qa extends JPanel {
 	
 	public void set_qa_bt(boolean enable) {
 		update_bt.setEnabled(enable);
+		delete_bt.setEnabled(enable);
 	}
 }

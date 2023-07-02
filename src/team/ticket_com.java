@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
+import mybatis.VO_ticketbuy;
+
 public class ticket_com extends JPanel {
 	private user_panel parent;
 
@@ -39,6 +41,7 @@ public class ticket_com extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				parent.showCard("mypage");
+				((mypage)parent.getP("mypage")).setText();
 			}
 		});
 
@@ -81,8 +84,8 @@ public class ticket_com extends JPanel {
 		jta = new JTextArea(5, 20);
 		jta.setEditable(false);
 		jta.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
-		jta.setText("이용권 구매 번호\r\n@@@님\r\n@월 @일\r\n(@권 @시간 @캐쉬) \r\n결제 완료");
 		jp2.add(jta);
+		
 
 		jp3 = new JPanel();
 
@@ -105,5 +108,12 @@ public class ticket_com extends JPanel {
 		add(jp1, BorderLayout.NORTH);
 		add(jp2, BorderLayout.CENTER);
 		add(jp3, BorderLayout.SOUTH);
+	}
+	
+	public void ticketCom() {
+		jta.append("\n");
+		jta.append("이용권 구매 번호 : " + parent.getT_Vo().getBuy_num() + "\n");
+		jta.append("이용권 이름 : " + parent.getT_Vo().getTicket_id() + "\n");
+		jta.append("이용권 구매 날짜 : " + parent.getT_Vo().getBuy_date());
 	}
 }

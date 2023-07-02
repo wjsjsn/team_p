@@ -2,18 +2,22 @@ package team;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import java.awt.FlowLayout;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import mybatis.DAO;
+import mybatis.VO;
 
 public class user_idf extends JPanel {
 
@@ -44,15 +48,14 @@ public class user_idf extends JPanel {
 		idf_bt.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String num = "[0-9]+";
-				String phone = phone_tf.getText();
-				if (phone.equals("")) {
-					JOptionPane.showMessageDialog(getParent(), "핸드폰 번호 전부 입력해주세요.");
-				} else {
-					JOptionPane.showMessageDialog(getParent(), "@@@님의 아이디는 @@@입니다.");
-					parent.showCard("login");
-					phone_tf.setText("");
-				}
+				find_id();
+			}
+		});
+		
+		phone_tf.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				find_id();
 			}
 		});
 	}
@@ -106,5 +109,27 @@ public class user_idf extends JPanel {
 		back_bt = new JButton("  뒤로가기  ");
 		back_bt.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		jp5.add(back_bt);
+	}
+	
+	public void find_id() {
+		String phone = phone_tf.getText();
+		String num = "[0-9]+";		
+		List<VO> list = DAO.getId(phone);
+		if(phone.equals("")) {
+			JOptionPane.showMessageDialog(getParent(), "핸드폰 번호를 입력해주세요.");
+			phone_tf.requestFocus();
+		}else if (phone.length() < 11 || !phone.matches(num)) {
+			JOptionPane.showMessageDialog(getParent(), "핸드폰 번호는 숫자만 010부터 모두 입력해주세요.");
+			phone_tf.setText("");
+			phone_tf.requestFocus();
+		}else if(list != null) {
+			String ids = "";
+			for (VO k : list) {
+				ids += k.getUser_id() + " ";				
+			}
+			JOptionPane.showMessageDialog(getParent(), "회원님의 아이디는" + ids + "입니다.");
+			phone_tf.setText("");
+			parent.showCard("login");
+		}
 	}
 }

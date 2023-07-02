@@ -1,21 +1,22 @@
 package team;
 
+import java.awt.Color;
 import java.awt.Dimension;
-
-import javax.swing.JPanel;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Timestamp;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JButton;
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import java.awt.FlowLayout;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import mybatis.DAO_point;
 import mybatis.VO_point;
@@ -122,6 +123,7 @@ public class point_refund extends JPanel {
 		refund_tf.setEditable(false);
 		refund_tf.setHorizontalAlignment(SwingConstants.CENTER);
 		refund_tf.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		refund_tf.setBackground(Color.white);
 		jp4.add(refund_tf);
 		refund_tf.setColumns(10);
 

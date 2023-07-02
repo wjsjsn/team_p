@@ -1,6 +1,7 @@
 package team;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -143,6 +144,7 @@ public class mypage extends JPanel {
 
 		jta = new JTextArea(5, 30);
 		jta.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
+		jta.setBackground(Color.white);
 		jta.setEditable(false);
 		jp4.add(jta);
 
@@ -181,7 +183,7 @@ public class mypage extends JPanel {
 		if (parent.getC_Vo().getTicket_id() == null) {
 			jta.append("보유 이용권: 없음\n");
 		} else {
-			jta.append("보유 이용권: " + parent.getC_Vo().getTicket_id() + "\n");
+			jta.append("보유 이용권: " + parent.getT_Vo().getTicket_id() + "\n");
 		}
 		jta.append("포인트 잔액: " + parent.getC_Vo().getPoint() + "\n");
 	}

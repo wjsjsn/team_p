@@ -37,29 +37,7 @@ public class user_login extends JPanel {
 		login_bt.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String id = id_tf.getText();
-				VO vo = DAO.getOne(id);
-				String pw = new String(pw_tf.getPassword());
-				if (id.equals("") || pw.equals("")) {
-					JOptionPane.showMessageDialog(getParent(), "아이디, 비밀번호 전부 입력해주세요.");
-				} else if (vo != null && pw.equals(vo.getUser_password())) {
-					JOptionPane.showMessageDialog(getParent(), "로그인 되었습니다. 환영합니다!");
-					parent.showCard("main");
-					id_tf.setText("");
-					pw_tf.setText("");
-					parent.setC_Vo(vo);
-					((user_main) parent.getP("main")).initQaList();
-					((user_main) parent.getP("main")).initnoticeList();
-				} else if (vo == null) {
-					JOptionPane.showMessageDialog(getParent(), "아이디가 없습니다. 다시 입력해주세요.");
-					id_tf.setText("");
-					pw_tf.setText("");
-					id_tf.requestFocus();
-				} else if (!pw.equals(vo.getUser_password())) {
-					JOptionPane.showMessageDialog(getParent(), "비밀번호가 틀렸습니다. 다시 입력해주세요.");
-					pw_tf.setText("");
-					pw_tf.requestFocus();
-				}
+				login_s();
 			}
 		});
 
@@ -96,29 +74,7 @@ public class user_login extends JPanel {
 		pw_tf.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String id = id_tf.getText();
-				VO vo = DAO.getOne(id);
-				String pw = new String(pw_tf.getPassword());
-				if (id.equals("") || pw.equals("")) {
-					JOptionPane.showMessageDialog(getParent(), "아이디, 비밀번호 전부 입력해주세요.");
-				} else if (vo != null && pw.equals(vo.getUser_password())) {
-					JOptionPane.showMessageDialog(getParent(), "로그인 되었습니다. 환영합니다!");
-					parent.showCard("main");
-					id_tf.setText("");
-					pw_tf.setText("");
-					parent.setC_Vo(vo);
-					((user_main) parent.getP("main")).initQaList();
-					((user_main) parent.getP("main")).initnoticeList();
-				} else if (vo == null) {
-					JOptionPane.showMessageDialog(getParent(), "아이디가 없습니다. 다시 입력해주세요.");
-					id_tf.setText("");
-					pw_tf.setText("");
-					id_tf.requestFocus();
-				} else if (!pw.equals(vo.getUser_password())) {
-					JOptionPane.showMessageDialog(getParent(), "비밀번호가 틀렸습니다. 다시 입력해주세요.");
-					pw_tf.setText("");
-					pw_tf.requestFocus();
-				}
+				login_s();
 			}
 		});
 	}
@@ -201,5 +157,32 @@ public class user_login extends JPanel {
 		add(jp1, BorderLayout.NORTH);
 		add(jp2, BorderLayout.CENTER);
 		add(jp5, BorderLayout.SOUTH);
+	}
+	
+	public void login_s() {
+		String id = id_tf.getText();
+		VO vo = DAO.getOne(id);
+		String pw = new String(pw_tf.getPassword());
+		if (id.equals("") || pw.equals("")) {
+			JOptionPane.showMessageDialog(getParent(), "아이디, 비밀번호 전부 입력해주세요.");
+		} else if (vo != null && pw.equals(vo.getUser_password())) {
+			JOptionPane.showMessageDialog(getParent(), "로그인 되었습니다. 환영합니다!");
+			parent.showCard("main");
+			id_tf.setText("");
+			pw_tf.setText("");
+			parent.setC_Vo(vo);
+			((user_main) parent.getP("main")).initQaList();
+			((user_main) parent.getP("main")).initnoticeList();
+			((user_main)parent.getP("main")).set_id(id);
+		} else if (vo == null) {
+			JOptionPane.showMessageDialog(getParent(), "아이디가 없습니다. 다시 입력해주세요.");
+			id_tf.setText("");
+			pw_tf.setText("");
+			id_tf.requestFocus();
+		} else if (!pw.equals(vo.getUser_password())) {
+			JOptionPane.showMessageDialog(getParent(), "비밀번호가 틀렸습니다. 다시 입력해주세요.");
+			pw_tf.setText("");
+			pw_tf.requestFocus();
+		}
 	}
 }
